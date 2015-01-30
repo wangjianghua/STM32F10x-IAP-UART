@@ -46,7 +46,7 @@ void SerialUpload(void)
   if (GetKey() == CRC16)
   {
     /* Transmit the flash image through ymodem protocol */
-    status = Ymodem_Transmit((uint8_t*)ApplicationAddress, (const uint8_t*)"UploadedFlashImage.bin", FLASH_IMAGE_SIZE);
+    status = Ymodem_Transmit((uint8_t*)APPLICATION_ADDRESS, (const uint8_t*)"UploadedFlashImage.bin", FLASH_IMAGE_SIZE);
 
     if (status != 0) 
     {

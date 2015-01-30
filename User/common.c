@@ -30,8 +30,6 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-pFunction Jump_To_Application;
-uint32_t JumpAddress;
 uint32_t BlockNbr = 0, UserMemoryMask = 0;
 __IO uint32_t FlashProtection = 0;
 extern uint32_t FlashDestination;
@@ -460,13 +458,8 @@ void Main_Menu(void)
     }
     else if (key == 0x33)
     {
-      JumpAddress = *(__IO uint32_t*) (ApplicationAddress + 4);
-
-      /* Jump to user application */
-      Jump_To_Application = (pFunction) JumpAddress;
-      /* Initialize user application's Stack Pointer */
-      __set_MSP(*(__IO uint32_t*) ApplicationAddress);
-      Jump_To_Application();
+      /* Execute the new program */  
+      IAP_JumpToApplication();
     }
     else if ((key == 0x34) && (FlashProtection == 1))
     {
@@ -485,6 +478,38 @@ void Main_Menu(void)
       } 
     }
   }
+}
+
+/**
+  * @brief  Jump to application
+  * @param  None
+  * @retval None
+  */
+void IAP_JumpToApplication(void)
+{
+  pFunction Jump_To_Application;
+  uint32_t JumpAddress;   
+
+  /* Lock the Flash Program Erase controller */
+  FLASH_Lock();
+  
+  /* Test if user code is programmed starting from address "APPLICATION_ADDRESS" */
+  if (((*(__IO uint32_t*)APPLICATION_ADDRESS) & 0x2FFE0000 ) == 0x20000000)
+  { 
+    /* Jump to user application */
+    JumpAddress = *(__IO uint32_t*)(APPLICATION_ADDRESS + 4);
+    Jump_To_Application = (pFunction) JumpAddress;
+    /* Initialize user application's Stack Pointer */
+    __set_MSP(*(__IO uint32_t*)APPLICATION_ADDRESS);
+    Jump_To_Application();
+  }
+  else
+  {
+    SerialPutString("Jump to application error!\r\n");    
+  }
+  
+  while (1)
+  {}
 }
 
 /**

@@ -43,9 +43,6 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-extern pFunction Jump_To_Application;
-extern uint32_t JumpAddress;
-
 /* Private function prototypes -----------------------------------------------*/
 static void IAP_Init(uint32_t BaudRate);
 
@@ -88,21 +85,12 @@ int main(void)
     SerialPutString("\r\n=                                   By MCD Application Team          =");
     SerialPutString("\r\n======================================================================");
     SerialPutString("\r\n\r\n");
-    Main_Menu ();
+    Main_Menu();
   }
   /* Keep the user application running */
   else
   {
-    /* Test if user code is programmed starting from address "ApplicationAddress" */
-    if (((*(__IO uint32_t*)ApplicationAddress) & 0x2FFE0000 ) == 0x20000000)
-    { 
-      /* Jump to user application */
-      JumpAddress = *(__IO uint32_t*) (ApplicationAddress + 4);
-      Jump_To_Application = (pFunction) JumpAddress;
-      /* Initialize user application's Stack Pointer */
-      __set_MSP(*(__IO uint32_t*) ApplicationAddress);
-      Jump_To_Application();
-    }
+    IAP_JumpToApplication();
   }
 
   while (1)
