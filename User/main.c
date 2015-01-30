@@ -18,6 +18,20 @@
   * <h2><center>&copy; COPYRIGHT 2010 STMicroelectronics</center></h2>
   */ 
 
+/** 
+ * @file     main.c
+ * @brief    STM32F10x-IAP-UART
+ * @details  STM32F10x in-application programming using the USART (AN2557)
+ * @author   华兄
+ * @email    591881218@qq.com
+ * @date     2015
+ * @version  vX.XX
+ * @par Copyright (c):  
+ *           华兄电子
+ * @par History:          
+ *   version: author, date, desc\n 
+ */ 
+
 /** @addtogroup IAP
   * @{
   */
@@ -33,7 +47,7 @@ extern pFunction Jump_To_Application;
 extern uint32_t JumpAddress;
 
 /* Private function prototypes -----------------------------------------------*/
-static void IAP_Init(void);
+static void IAP_Init(uint32_t BaudRate);
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -51,11 +65,11 @@ int main(void)
   STM_EVAL_PBInit(BUTTON_KEY, BUTTON_MODE_GPIO);   
 
   /* Test if Key push-button on STM3210X-EVAL Board is pressed */
-  if (STM_EVAL_PBGetState(BUTTON_KEY)  == 0x00)
+  if (RESET == STM_EVAL_PBGetState(BUTTON_KEY))
   { 
     /* If Key is pressed */
     /* Execute the IAP driver in order to re-program the Flash */
-    IAP_Init();
+    IAP_Init(19200); /* Default BaudRate: 115200bps */
     SerialPutString("\r\n======================================================================");
     SerialPutString("\r\n=              (C) COPYRIGHT 2010 STMicroelectronics                 =");
     SerialPutString("\r\n=                                                                    =");
@@ -90,7 +104,7 @@ int main(void)
   * @param  None
   * @retval None
   */
-void IAP_Init(void)
+static void IAP_Init(uint32_t BaudRate)
 {
  USART_InitTypeDef USART_InitStructure;
 
@@ -103,7 +117,7 @@ void IAP_Init(void)
         - Hardware flow control disabled (RTS and CTS signals)
         - Receive and transmit enabled
   */
-  USART_InitStructure.USART_BaudRate = 115200;
+  USART_InitStructure.USART_BaudRate = BaudRate;
   USART_InitStructure.USART_WordLength = USART_WordLength_8b;
   USART_InitStructure.USART_StopBits = USART_StopBits_1;
   USART_InitStructure.USART_Parity = USART_Parity_No;

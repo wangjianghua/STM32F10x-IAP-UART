@@ -110,13 +110,13 @@
 /**
  * @brief Key push-button
  */
-#define KEY_BUTTON_PIN                   GPIO_Pin_8
-#define KEY_BUTTON_GPIO_PORT             GPIOG
-#define KEY_BUTTON_GPIO_CLK              RCC_APB2Periph_GPIOG
-#define KEY_BUTTON_EXTI_LINE             EXTI_Line8
-#define KEY_BUTTON_EXTI_PORT_SOURCE      GPIO_PortSourceGPIOG
-#define KEY_BUTTON_EXTI_PIN_SOURCE       GPIO_PinSource8
-#define KEY_BUTTON_EXTI_IRQn             EXTI9_5_IRQn
+#define KEY_BUTTON_PIN                   GPIO_Pin_10
+#define KEY_BUTTON_GPIO_PORT             GPIOC
+#define KEY_BUTTON_GPIO_CLK              RCC_APB2Periph_GPIOC
+#define KEY_BUTTON_EXTI_LINE             EXTI_Line10
+#define KEY_BUTTON_EXTI_PORT_SOURCE      GPIO_PortSourceGPIOC
+#define KEY_BUTTON_EXTI_PIN_SOURCE       GPIO_PinSource10
+#define KEY_BUTTON_EXTI_IRQn             EXTI15_10_IRQn
 /**
  * @brief Joystick Right push-button
  */
