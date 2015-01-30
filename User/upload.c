@@ -41,7 +41,7 @@ void SerialUpload(void)
 {
   uint32_t status = 0; 
 
-  SerialPutString("\n\n\rSelect Receive File ... (press any key to abort)\n\r");
+  SerialPutString("Select Receive File ... (press any key to abort)\n\n\r");
 
   if (GetKey() == CRC16)
   {
@@ -50,18 +50,17 @@ void SerialUpload(void)
 
     if (status != 0) 
     {
-      SerialPutString("\n\rError Occured while Transmitting File\n\r");
+      SerialPutString("\n\n\rError Occured while Transmitting File!\n\r");
     }
     else
     {
-      SerialPutString("\n\rFile Trasmitted Successfully \n\r");
+      SerialPutString("\n\n\rFile Trasmitted Successfully!\n\r");
     }
   }
   else
   {
     SerialPutString("\r\n\nAborted by user.\n\r");  
   }
- 
 }
 
 /**

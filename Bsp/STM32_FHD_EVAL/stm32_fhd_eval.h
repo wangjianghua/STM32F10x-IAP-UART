@@ -205,6 +205,8 @@
 #define EVAL_COM2_RX_GPIO_CLK            RCC_APB2Periph_GPIOA
 #define EVAL_COM2_IRQn                   USART2_IRQn
 
+#define UART_BAUD_RATE                   19200u
+
 /**
   * @}
   */ 

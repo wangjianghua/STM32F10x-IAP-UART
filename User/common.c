@@ -170,7 +170,7 @@ uint32_t GetIntegerInput(int32_t * num)
     if (inputstr[0] == '\0') continue;
     if ((inputstr[0] == 'a' || inputstr[0] == 'A') && inputstr[1] == '\0')
     {
-      SerialPutString("User Cancelled \r\n");
+      SerialPutString("User Cancelled\r\n");
       return 0;
     }
 
@@ -374,16 +374,16 @@ void FLASH_DisableWriteProtectionPages(void)
 
     if (status == FLASH_COMPLETE)
     {
-      SerialPutString("Write Protection disabled...\r\n");
+      SerialPutString("Write Protection disabled ...\r\n");
 
-      SerialPutString("...and a System Reset will be generated to re-load the new option bytes\r\n");
+      SerialPutString("... and a System Reset will be generated to re-load the new option bytes\r\n");
 
       /* Generate System Reset to load the new option byte values */
       NVIC_SystemReset();
     }
     else
     {
-      SerialPutString("Error: Flash write unprotection failed...\r\n");
+      SerialPutString("Error: Flash write unprotection failed ...\r\n");
     }
   }
   else
@@ -400,7 +400,18 @@ void FLASH_DisableWriteProtectionPages(void)
 void Main_Menu(void)
 {
   uint8_t key = 0;
-  
+
+  SerialPutString("\r\n===================================================================");
+  SerialPutString("\r\n=              (C) COPYRIGHT 2010 STMicroelectronics              =");
+  SerialPutString("\r\n=                                                                 =");
+  SerialPutString("\r\n=     In-Application Programming Application  (Version 3.3.0)     =");
+  SerialPutString("\r\n=                                                                 =");
+  SerialPutString("\r\n=                                    By MCD Application Team      =");
+  SerialPutString("\r\n=                                                                 =");
+  SerialPutString("\r\n=                               Modified by 591881218@qq.com      =");
+  SerialPutString("\r\n===================================================================");
+  SerialPutString("\r\n\r\n");
+    
   /* Get the number of block (4 or 2 pages) from where the user program will be loaded */
   BlockNbr = (FlashDestination - 0x08000000) >> 12;
 
@@ -432,17 +443,17 @@ void Main_Menu(void)
 
   while (1)
   {
-    SerialPutString("\r\n================== Main Menu ============================\r\n\n");
-    SerialPutString("  Download Image To the STM32F10x Internal Flash ------- 1\r\n\n");
-    SerialPutString("  Upload Image From the STM32F10x Internal Flash ------- 2\r\n\n");
-    SerialPutString("  Execute The New Program ------------------------------ 3\r\n\n");
+    SerialPutString("\r\n======================= Main Menu =======================\r\n\n");
+    SerialPutString(" Download Image To the STM32F10x Internal Flash ------ 1\r\n\n");
+    SerialPutString(" Upload Image From the STM32F10x Internal Flash ------ 2\r\n\n");
+    SerialPutString(" Execute The New Program ----------------------------- 3\r\n\n");
     
     if(FlashProtection != 0)
     {
-      SerialPutString("  Disable the write protection ------------------------- 4\r\n\n");
+      SerialPutString(" Disable the write protection ------------------------ 4\r\n\n");
     }
     
-    SerialPutString("==========================================================\r\n\n");
+    SerialPutString("=========================================================\r\n\n");
     
     key = GetKey();
 
@@ -470,11 +481,11 @@ void Main_Menu(void)
     {
       if (FlashProtection == 0)
       {
-        SerialPutString("Invalid Number ! ==> The number should be either 1, 2 or 3\r");
+        SerialPutString("Invalid Number! ==> The number should be either 1, 2 or 3\r\n");
       }
       else
       {
-        SerialPutString("Invalid Number ! ==> The number should be either 1, 2, 3 or 4\r");
+        SerialPutString("Invalid Number! ==> The number should be either 1, 2, 3 or 4\r\n");
       } 
     }
   }

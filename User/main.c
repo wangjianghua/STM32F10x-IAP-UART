@@ -76,15 +76,7 @@ int main(void)
   { 
     /* If Key is pressed */
     /* Execute the IAP driver in order to re-program the Flash */
-    IAP_Init(19200); /* Default BaudRate: 115200bps */
-    SerialPutString("\r\n======================================================================");
-    SerialPutString("\r\n=              (C) COPYRIGHT 2010 STMicroelectronics                 =");
-    SerialPutString("\r\n=                                                                    =");
-    SerialPutString("\r\n=     In-Application Programming Application  (Version 3.3.0)        =");
-    SerialPutString("\r\n=                                                                    =");
-    SerialPutString("\r\n=                                   By MCD Application Team          =");
-    SerialPutString("\r\n======================================================================");
-    SerialPutString("\r\n\r\n");
+    IAP_Init(UART_BAUD_RATE); /* Default BaudRate: 115200bps */
     Main_Menu();
   }
   /* Keep the user application running */
@@ -104,7 +96,7 @@ int main(void)
   */
 static void IAP_Init(uint32_t BaudRate)
 {
- USART_InitTypeDef USART_InitStructure;
+  USART_InitTypeDef USART_InitStructure;
 
   /* USART resources configuration (Clock, GPIO pins and USART registers) ----*/
   /* USART configured as follow:

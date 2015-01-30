@@ -48,7 +48,7 @@ void SerialDownload(void)
   uint8_t Number[10] = "          ";
   int32_t Size = 0;
 
-  SerialPutString("Waiting for the file to be sent ... (press 'a' to abort)\n\r");
+  SerialPutString("Waiting for the file to be sent ... (press 'a' to abort)\n\n\r");
   Size = Ymodem_Receive(&tab_1024[0]);
   if (Size > 0)
   {
@@ -58,7 +58,7 @@ void SerialDownload(void)
     SerialPutString("\n\r Size: ");
     SerialPutString(Number);
     SerialPutString(" Bytes\r\n");
-    SerialPutString("-------------------\n");
+    SerialPutString("--------------------------------\n");
   }
   else if (Size == -1)
   {
@@ -74,7 +74,7 @@ void SerialDownload(void)
   }
   else
   {
-    SerialPutString("\n\rFailed to receive the file!\n\r");
+    SerialPutString("\n\n\rFailed to receive the file!\n\r");
   }
 }
 
