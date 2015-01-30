@@ -198,7 +198,14 @@ uint32_t SerialKeyPressed(uint8_t *key)
 
   if ( USART_GetFlagStatus(EVAL_COM1, USART_FLAG_RXNE) != RESET)
   {
+    /* Turn on UART's LED */
+    STM_EVAL_LEDOn(LED_UART);
+    
     *key = (uint8_t)EVAL_COM1->DR;
+    
+    /* Turn off UART's LED */
+    STM_EVAL_LEDOff(LED_UART);
+    
     return 1;
   }
   else
@@ -232,10 +239,16 @@ uint8_t GetKey(void)
   */
 void SerialPutChar(uint8_t c)
 {
+  /* Turn on UART's LED */
+  STM_EVAL_LEDOn(LED_UART);
+  
   USART_SendData(EVAL_COM1, c);
   while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TXE) == RESET)
   {
   }
+
+  /* Turn off UART's LED */
+  STM_EVAL_LEDOff(LED_UART);  
 }
 
 /**

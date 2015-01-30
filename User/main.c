@@ -61,8 +61,18 @@ int main(void)
   /* Flash unlock */
   FLASH_Unlock();
 
+  /* Initialize Leds mounted on STM3210X-EVAL board */
+  STM_EVAL_LEDInit(LED_PWR);
+  STM_EVAL_LEDInit(LED_UART);
+
   /* Initialize Key Button mounted on STM3210X-EVAL board */       
   STM_EVAL_PBInit(BUTTON_KEY, BUTTON_MODE_GPIO);   
+
+  /* Turn on PWR's LED */
+  STM_EVAL_LEDOn(LED_PWR);
+
+  /* Turn off UART's LED */
+  STM_EVAL_LEDOff(LED_UART); 
 
   /* Test if Key push-button on STM3210X-EVAL Board is pressed */
   if (RESET == STM_EVAL_PBGetState(BUTTON_KEY))
