@@ -404,7 +404,7 @@ void Main_Menu(void)
   SerialPutString("\r\n===================================================================");
   SerialPutString("\r\n=              (C) COPYRIGHT 2010 STMicroelectronics              =");
   SerialPutString("\r\n=                                                                 =");
-  SerialPutString("\r\n=     In-Application Programming Application  (Version 3.3.0)     =");
+  SerialPutString("\r\n=     In-Application Programming Application  (Version 3.5.0)     =");
   SerialPutString("\r\n=                                                                 =");
   SerialPutString("\r\n=                                    By MCD Application Team      =");
   SerialPutString("\r\n=                                                                 =");
