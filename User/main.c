@@ -62,6 +62,7 @@ int  main(void)
   /* Test if Key push-button on STM3210X-EVAL Board is pressed */
   if (RESET == STM_EVAL_PBGetState(BUTTON_KEY))
   { 
+    /* If Key is pressed */
     /* Initialize Leds mounted on STM3210X-EVAL board */
     STM_EVAL_LEDInit(LED_PWR);
     STM_EVAL_LEDInit(LED_UART);
@@ -71,8 +72,7 @@ int  main(void)
     
     /* Turn off UART's LED */
     STM_EVAL_LEDOff(LED_UART); 
-    
-    /* If Key is pressed */
+
     /* Execute the IAP driver in order to re-program the Flash */
     IAP_Init(UART_BAUD_RATE); /* Default BaudRate: 115200bps */
     Main_Menu();
