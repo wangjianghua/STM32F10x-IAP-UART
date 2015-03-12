@@ -44,8 +44,6 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
-static void IAP_Init(uint32_t BaudRate);
-
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -53,27 +51,27 @@ static void IAP_Init(uint32_t BaudRate);
   * @param  None
   * @retval None
   */
-int main(void)
+int  main(void)
 {
   /* Flash unlock */
   FLASH_Unlock();
 
-  /* Initialize Leds mounted on STM3210X-EVAL board */
-  STM_EVAL_LEDInit(LED_PWR);
-  STM_EVAL_LEDInit(LED_UART);
-
   /* Initialize Key Button mounted on STM3210X-EVAL board */       
   STM_EVAL_PBInit(BUTTON_KEY, BUTTON_MODE_GPIO);   
-
-  /* Turn on PWR's LED */
-  STM_EVAL_LEDOn(LED_PWR);
-
-  /* Turn off UART's LED */
-  STM_EVAL_LEDOff(LED_UART); 
 
   /* Test if Key push-button on STM3210X-EVAL Board is pressed */
   if (RESET == STM_EVAL_PBGetState(BUTTON_KEY))
   { 
+    /* Initialize Leds mounted on STM3210X-EVAL board */
+    STM_EVAL_LEDInit(LED_PWR);
+    STM_EVAL_LEDInit(LED_UART);
+
+    /* Turn on PWR's LED */
+    STM_EVAL_LEDOn(LED_PWR);
+    
+    /* Turn off UART's LED */
+    STM_EVAL_LEDOff(LED_UART); 
+    
     /* If Key is pressed */
     /* Execute the IAP driver in order to re-program the Flash */
     IAP_Init(UART_BAUD_RATE); /* Default BaudRate: 115200bps */
@@ -87,34 +85,6 @@ int main(void)
 
   while (1)
   {}
-}
-
-/**
-  * @brief  Initialize the IAP: Configure RCC, USART and GPIOs.
-  * @param  None
-  * @retval None
-  */
-static void IAP_Init(uint32_t BaudRate)
-{
-  USART_InitTypeDef USART_InitStructure;
-
-  /* USART resources configuration (Clock, GPIO pins and USART registers) ----*/
-  /* USART configured as follow:
-        - BaudRate = 115200 baud  
-        - Word Length = 8 Bits
-        - One Stop Bit
-        - No parity
-        - Hardware flow control disabled (RTS and CTS signals)
-        - Receive and transmit enabled
-  */
-  USART_InitStructure.USART_BaudRate = BaudRate;
-  USART_InitStructure.USART_WordLength = USART_WordLength_8b;
-  USART_InitStructure.USART_StopBits = USART_StopBits_1;
-  USART_InitStructure.USART_Parity = USART_Parity_No;
-  USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
-  USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
-
-  STM_EVAL_COMInit(COM1, &USART_InitStructure);  
 }
 
 #ifdef USE_FULL_ASSERT

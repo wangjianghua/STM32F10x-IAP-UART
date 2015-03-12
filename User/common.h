@@ -85,6 +85,7 @@ void FLASH_DisableWriteProtectionPages(void);
 void Main_Menu(void);
 void SerialDownload(void);
 void SerialUpload(void);
+void IAP_Init(uint32_t BaudRate);
 void IAP_JumpToApplication(void);
 
 #endif  /* _COMMON_H */

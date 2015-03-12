@@ -492,6 +492,34 @@ void Main_Menu(void)
 }
 
 /**
+  * @brief  Initialize the IAP: Configure RCC, USART and GPIOs
+  * @param  None
+  * @retval None
+  */
+void IAP_Init(uint32_t BaudRate)
+{
+  USART_InitTypeDef USART_InitStructure;
+
+  /* USART resources configuration (Clock, GPIO pins and USART registers) ----*/
+  /* USART configured as follow:
+        - BaudRate = BaudRate baud  
+        - Word Length = 8 Bits
+        - One Stop Bit
+        - No parity
+        - Hardware flow control disabled (RTS and CTS signals)
+        - Receive and transmit enabled
+  */
+  USART_InitStructure.USART_BaudRate = BaudRate;
+  USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+  USART_InitStructure.USART_StopBits = USART_StopBits_1;
+  USART_InitStructure.USART_Parity = USART_Parity_No;
+  USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+  USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+
+  STM_EVAL_COMInit(COM1, &USART_InitStructure);  
+}
+
+/**
   * @brief  Jump to application
   * @param  None
   * @retval None
@@ -505,11 +533,11 @@ void IAP_JumpToApplication(void)
   FLASH_Lock();
   
   /* Test if user code is programmed starting from address "APPLICATION_ADDRESS" */
-  if (((*(__IO uint32_t*)APPLICATION_ADDRESS) & 0x2FFE0000 ) == 0x20000000)
+  if (((*(__IO uint32_t*)APPLICATION_ADDRESS) & 0x2FFE0000) == 0x20000000)
   { 
     /* Jump to user application */
     JumpAddress = *(__IO uint32_t*)(APPLICATION_ADDRESS + 4);
-    Jump_To_Application = (pFunction) JumpAddress;
+    Jump_To_Application = (pFunction)JumpAddress;
     /* Initialize user application's Stack Pointer */
     __set_MSP(*(__IO uint32_t*)APPLICATION_ADDRESS);
     Jump_To_Application();
