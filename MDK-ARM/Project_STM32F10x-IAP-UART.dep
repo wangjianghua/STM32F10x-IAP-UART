@@ -163,7 +163,7 @@ I (..\Bsp\stm32_fhd_eval/stm32_fhd_eval.c)(0x54CB400F)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_spi.h)(0x4D783BB4)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_i2c.h)(0x4D783BB4)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_dma.h)(0x4D783BB4)
-F (..\User\common.c)(0x55013B4D)(-c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I..\Bsp -I..\Bsp\Common -I..\Bsp\STM32_FHD_EVAL -I..\Libraries\CMSIS\CM3\CoreSupport -I..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\User-I "D:\Program Files\Keil\ARM\RV31\INC"-I "D:\Program Files\Keil\ARM\CMSIS\Include"-I "D:\Program Files\Keil\ARM\Inc\ST\STM32F10x"-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -DUSE_STM32_FHD_EVAL-o .\output\common.o --omf_browse .\output\common.crf --depend .\output\common.d)
+F (..\User\common.c)(0x55E3E05F)(-c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I..\Bsp -I..\Bsp\Common -I..\Bsp\STM32_FHD_EVAL -I..\Libraries\CMSIS\CM3\CoreSupport -I..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\User-I "D:\Program Files\Keil\ARM\RV31\INC"-I "D:\Program Files\Keil\ARM\CMSIS\Include"-I "D:\Program Files\Keil\ARM\Inc\ST\STM32F10x"-DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD -DUSE_STM32_FHD_EVAL-o .\output\common.o --omf_browse .\output\common.crf --depend .\output\common.d)
 I (..\User\common.h)(0x55013B76)
 I (D:\Program Files\Keil\ARM\ARMCC\include\stdio.h)(0x51C7C554)
 I (D:\Program Files\Keil\ARM\ARMCC\include\string.h)(0x51C7C554)

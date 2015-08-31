@@ -430,7 +430,6 @@ void Main_Menu(void)
   }
 #endif /* (STM32F10X_MD) || (STM32F10X_MD_VL) */
 
-
   /* Test if any page of Flash memory where program user will be loaded is write protected */
   if ((FLASH_GetWriteProtectionOptionByte() & UserMemoryMask) != UserMemoryMask)
   {
@@ -443,6 +442,7 @@ void Main_Menu(void)
 
   while (1)
   {
+#if 0    
     SerialPutString("\r\n======================= Main Menu =======================\r\n\n");
     SerialPutString(" Download Image To the STM32F10x Internal Flash ------ 1\r\n\n");
     SerialPutString(" Upload Image From the STM32F10x Internal Flash ------ 2\r\n\n");
@@ -488,6 +488,47 @@ void Main_Menu(void)
         SerialPutString("Invalid Number! ==> The number should be either 1, 2, 3 or 4\r\n");
       } 
     }
+#else
+    SerialPutString("\r\n======================= Main Menu =======================\r\n\n");
+    SerialPutString(" Download Image To the STM32F10x Internal Flash ------ 1\r\n\n");
+    SerialPutString(" Execute The New Program ----------------------------- 2\r\n\n");
+
+    if(FlashProtection != 0)
+    {
+      SerialPutString(" Disable the write protection ------------------------ 3\r\n\n");
+    }
+
+    SerialPutString("=========================================================\r\n\n");
+
+    key = GetKey();
+
+    if (key == 0x31)
+    {
+      /* Download user application in the Flash */
+      SerialDownload();
+    }
+    else if (key == 0x32)
+    {
+      /* Execute the new program */  
+      IAP_JumpToApplication();
+    }
+    else if ((key == 0x33) && (FlashProtection == 1))
+    {
+      /* Disable the write protection of desired pages */
+      FLASH_DisableWriteProtectionPages();
+    }
+    else
+    {
+      if (FlashProtection == 0)
+      {
+        SerialPutString("Invalid Number! ==> The number should be either 1 or 2\r\n");
+      }
+      else
+      {
+        SerialPutString("Invalid Number! ==> The number should be either 1, 2, or 3\r\n");
+      } 
+    }
+#endif
   }
 }
 
@@ -533,7 +574,7 @@ void IAP_JumpToApplication(void)
   FLASH_Lock();
   
   /* Test if user code is programmed starting from address "APPLICATION_ADDRESS" */
-  if (((*(__IO uint32_t*)APPLICATION_ADDRESS) & 0x2FFE0000) == 0x20000000)
+  if (((*(__IO uint32_t*)APPLICATION_ADDRESS) & 0x20000000) == 0x20000000)
   { 
     /* Jump to user application */
     JumpAddress = *(__IO uint32_t*)(APPLICATION_ADDRESS + 4);
